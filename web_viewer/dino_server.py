@@ -23,7 +23,7 @@ class DataHandler(tornado.web.RequestHandler):
 
 
 settings = {"template_path" : os.path.dirname(__file__),
-            "static_path" : os.path.dirname(__file__)+"/static",
+            "static_path" : os.path.dirname(__file__)+"static",
             "autoreload": True,
             } 
 

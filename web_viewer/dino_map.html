@@ -1,88 +1,104 @@
 <html>
 <head>
 
-<script src="{{static_url('d3.min.js')}}"></script>
-<script src="{{static_url('colorbrewer.js')}}"></script>
-<style>
-#main_svg circle.dot{
-  fill-opacity: 0.8;
-  stroke: black;
-}
-</style>
+    <script src="{{static_url('d3.min.js')}}"></script>
+    <script src="{{static_url('colorbrewer.js')}}"></script>
+    <style>
+        #main_svg circle.dot {
+            fill-opacity: 0.8;
+            stroke: black;
+        }
+    </style>
 </head>
 <body>
 <h1>Dino Viewer</h1>
+<h3><a href="http://vacommunity.org/2015+VAST+Challenge%3A+MC1">Vast challenge 2015</a></h3>
+
 <div id="main_map">
-<svg width="800" height="800" id="main_svg">
-<image xlink:href="{{static_url('ParkMap.jpg')}}" x="0" y="0" width="800px" height="800px" />
-</svg>
+    <svg width="800" height="800" id="main_svg">
+        <image xlink:href="{{static_url('ParkMap.jpg')}}" x="0" y="0" width="800px" height="800px"/>
+    </svg>
 </div>
 <div id="clock">Clock</div>
 <button id="show_guest_button">Show Random Guest</button>
 <script>
-var date_format = d3.time.format("%Y-%m-%d %H:%M:%S");
-var scale_x = d3.scale.linear();
-scale_x.domain([0,100]);
-scale_x.range([0,800]);
+    var date_format = d3.time.format("%Y-%m-%d %H:%M:%S");
+    var scale_x = d3.scale.linear();
+    scale_x.domain([0, 100]);
+    scale_x.range([0, 800]);
 
-var scale_y = d3.scale.linear();
-scale_y.domain([0,100]);
-scale_y.range([800,0]);
+    var scale_y = d3.scale.linear();
+    scale_y.domain([0, 100]);
+    scale_y.range([800, 0]);
 
-var colors=colorbrewer.PuBuGn[9];
-var time_scale = d3.time.scale();
-var open_time=date_format.parse("2014-6-06 08:00:00");
-var close_time=date_format.parse("2014-6-06 20:30:00");
-var min_array = d3.time.minute.range(open_time,close_time);
-var time_points = d3.range(colors.length)
-time_points.forEach(function(e,i,a){a[i]=Math.floor(e*(min_array.length-1)/(colors.length-1));})
-var time_domain=time_points.map(function(i){return min_array[i];})
+    var colors = colorbrewer.PuBuGn[9];
+    var time_scale = d3.time.scale();
+    var open_time = date_format.parse("2014-6-06 08:00:00");
+    var close_time = date_format.parse("2014-6-06 20:30:00");
+    var min_array = d3.time.minute.range(open_time, close_time);
+    var time_points = d3.range(colors.length)
+    time_points.forEach(function (e, i, a) {
+        a[i] = Math.floor(e * (min_array.length - 1) / (colors.length - 1));
+    })
+    var time_domain = time_points.map(function (i) {
+        return min_array[i];
+    })
 
-time_scale.domain(time_domain);
-time_scale.range(colors);
+    time_scale.domain(time_domain);
+    time_scale.range(colors);
 
-var svg = d3.select("#main_svg");
-var scatter = svg.append("g");
+    var svg = d3.select("#main_svg");
+    var scatter = svg.append("g");
 
 
-function draw_guest(array){
+    function draw_guest(array) {
 // clear previous
 
 // parse times
-array.forEach(function(e,i,a){e.time = date_format.parse(e.Timestamp);});
+        array.forEach(function (e, i, a) {
+            e.time = date_format.parse(e.Timestamp);
+        });
 
 
-function draw_point(above_lim){
-    scatter.selectAll(".dot").data(array.slice(0, above_lim)).enter().append("circle").attr("class","dot").attr("r",6)
-    .attr("cx",function(d){return scale_x(d.X);})
-    .attr("cy",function(d){return scale_y(d.Y);})
-    .attr("fill",function(d){return time_scale(d.time);});
-}
-var i=0;
-d3.timer(function(){
-d3.select("#clock").text(array[i].time.toLocaleTimeString());
-draw_point(i);
-i+=1;
-if(i>=array.length){
-    console.log("done");
-    d3.select("#show_guest_button").attr("disabled", null);
-    return true;
-}
-return false;
-});
+        function draw_point(above_lim) {
+            scatter.selectAll(".dot").data(array.slice(0, above_lim)).enter().append("circle").attr("class", "dot").attr("r", 6)
+                    .attr("cx", function (d) {
+                        return scale_x(d.X);
+                    })
+                    .attr("cy", function (d) {
+                        return scale_y(d.Y);
+                    })
+                    .attr("fill", function (d) {
+                        return time_scale(d.time);
+                    });
+        }
 
-}
+        var i = 0;
+        d3.timer(function () {
+            d3.select("#clock").text(array[i].time.toLocaleTimeString());
+            draw_point(i);
+            i += 1;
+            if (i >= array.length) {
+                console.log("done");
+                d3.select("#show_guest_button").attr("disabled", null);
+                return true;
+            }
+            return false;
+        });
+
+    }
 
 
+    function read_guest() {
+        scatter.selectAll(".dot").remove();
+        console.log("reading guest");
+        d3.select("#show_guest_button").attr("disabled", true);
+        d3.json("data", function (e, d) {
+            draw_guest(d.array);
+        });
+    }
 
-function read_guest(){
-scatter.selectAll(".dot").remove();
-console.log("reading guest");
-d3.select("#show_guest_button").attr("disabled", true);
-d3.json("data",function(e,d){draw_guest(d.array);});
-}
-
-d3.select("#show_guest_button").on("click",read_guest);
+    d3.select("#show_guest_button").on("click", read_guest);
 
 </script>
 
