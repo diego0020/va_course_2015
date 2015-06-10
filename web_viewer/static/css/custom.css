@@ -9,6 +9,7 @@ Filter view
 
 #main_map{
     width: 900px;
+    /*width: 60%;*/
     margin: 10px;
     float: left;
 }
@@ -86,4 +87,19 @@ Random user view
 #main_svg circle.dot {
     fill-opacity: 0.8;
     stroke: black;
+}
+
+
+
+/**
+Template changes
+**/
+@media (min-width: 1400px) {
+    .container {
+        width: 80%;
+    }
+}
+
+button[disabled], html input[disabled] {
+    color:gray;
 }

@@ -1,5 +1,5 @@
 /**
- * Created by carol on 6/10/15.
+ *
  */
 var date_format = d3.time.format("%Y-%m-%d %H:%M:%S");
     var scale_x = d3.scale.linear();
@@ -106,13 +106,45 @@ var g_data;
 function get_subjects(){
     var e=brush.extent();
     var t=tbrush.extent();
+    var xmin,xmax,ymin,ymax,tmin,tmax;
+    if(e[0][0]<e[0][1])
+    {
+        xmin=e[0][0];
+        xmax=e[0][1];
+    }
+    else{
+        xmin=e[0][1];
+        xmax=e[0][0];
+    }
+
+    if(e[1][0]<e[1][1])
+    {
+        ymin=e[1][0];
+        ymax=e[1][1];
+    }else{
+        ymin=e[1][1];
+        ymax=e[1][0];
+    }
+
+
+    if(t[0].getTime()<t[1].getTime())
+    {
+        tmin=t[0].getTime();
+        tmax=t[1].getTime();
+    }else{
+        tmin=t[1].getTime();
+        tmax=t[0].getTime();
+    }
     url="filter_data?"+
-            "x_min="+e[0][0]+"&"+
-            "x_max="+e[0][1]+"&"+
-            "y_min="+e[0][1]+"&"+
-            "y_max="+e[1][1]+"&"+
-            "t_min="+t[0].getTime()+"&"+
-            "t_max="+t[1].getTime();
+            "x_min="+xmin+"&"+
+            "x_max="+xmax+"&"+
+            "y_min="+ymin+"&"+
+            "y_max="+ymax+"&"+
+            "t_min="+tmin+"&"+
+            "t_max="+tmin;
+
+    $("#subjects_list").html("");
+    //d3.selectAll("subjects_list > *").remove();
     d3.json(url,function(data){
         g_data = data;
         var labels=d3.select("#subjects_list").selectAll("label").data(g_data.guests).enter().append("label");
@@ -127,6 +159,9 @@ d3.select("#get_subjects_btn").on("click",get_subjects);
 function get_paths(){
     var x=d3.select("#subjects_list").selectAll("input").filter(function(){return this.checked})[0];
     var guests = x.map(function(i){return i.value});
+
+    paths.selectAll("*").remove();
+
     for (i=0; i<guests.length;i++){
         console.log(guests[i]);
         add_subject_path(guests[i]);

@@ -1,5 +1,5 @@
 /**
- * Created by carol on 6/10/15.
+ *
  */
 var date_format = d3.time.format("%Y-%m-%d %H:%M:%S");
     var scale_x = d3.scale.linear();
