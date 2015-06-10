@@ -5,7 +5,11 @@
 
 <div id="main_map">
     <svg width="800" height="800" id="main_svg">
-        <image xlink:href="{{static_url('ParkMap.jpg')}}" x="0" y="0" width="800px" height="800px"/>
+
+            <image class="background" xlink:href="{{static_url('ParkMap.jpg')}}" x="0" y="0" width="800px" height="800px"/>
+        <rect class="background" width="800px" height="800px" x="0" y="0">
+            </rect>
+
     </svg>
 </div>
 <div id="clock">Clock</div>
