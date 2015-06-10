@@ -43,7 +43,7 @@ class DataHandler(tornado.web.RequestHandler):
         self.write({"array" :guest_df_list})
 
     def initialize(self, df):
-        self.df = df
+        self.df = df[["X","Y","id","Timestamp","type"]]
 
 
 settings = {"template_path" : os.path.dirname(__file__),
@@ -53,14 +53,13 @@ settings = {"template_path" : os.path.dirname(__file__),
 if __name__ == "__main__":
     path = os.path.join(os.path.dirname(__file__), "../../MC1 2015 Data/park-movement-Fri.csv")
     df = pd.read_csv(path)
-    df2 = df.copy()
-    df2["time"] = pd.to_datetime(df2.Timestamp, format="%Y-%m-%d %H:%M:%S")
+    df["time"] = pd.to_datetime(df.Timestamp, format="%Y-%m-%d %H:%M:%S")
 
     application = tornado.web.Application([
         (r"/", MainHandler),
         (r"/data", DataHandler,{"df":df}),
         (r"/filter", DinoFilter),
-        (r"/filter_data", FilterData,{"df":df2}),
+        (r"/filter_data", FilterData,{"df":df}),
         (r"/static/(.*)", tornado.web.StaticFileHandler,
             {"path": settings["static_path"]})
 
