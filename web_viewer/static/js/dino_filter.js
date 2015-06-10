@@ -103,19 +103,23 @@ gBrush.selectAll("rect")
 
 
 function get_subjects(){
+    d3.select("#subjects_list").selectAll("div").remove();
     var g_data;
     var e=brush.extent();
     var t=tbrush.extent();
     var url="filter_data?"+
             "x_min="+e[0][0]+"&"+
-            "x_max="+e[0][1]+"&"+
+            "x_max="+e[1][0]+"&"+
             "y_min="+e[0][1]+"&"+
             "y_max="+e[1][1]+"&"+
             "t_min="+t[0].getTime()+"&"+
             "t_max="+t[1].getTime();
     d3.json(url,function(data){
         g_data = data;
-        var labels=d3.select("#subjects_list").selectAll("label").data(g_data.guests).enter().append("label");
+        var labels=d3.select("#subjects_list").selectAll("div").data(g_data.guests).enter()
+        .append("div").classed("checkbox",true)
+        .append("label");
+
         labels.append("input").attr("type","checkbox").attr("value", function(d){return d});
         labels.append("spam").text(function(d){return d});
 
@@ -131,8 +135,6 @@ function get_paths(){
         add_guest_path(guests[i]);
     }
 }
-
-
 
 function add_guest_path(g_id){
     var jitter_x = (Math.random()-0.5)*10;
@@ -154,3 +156,9 @@ function add_guest_path(g_id){
 }
 
 d3.select("#get_paths_btn").on("click",get_paths);
+
+function clear_paths(){
+    paths.selectAll("g").remove();
+}
+
+d3.select("#clear_paths_btn").on("click",clear_paths);

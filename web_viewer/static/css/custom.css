@@ -1,6 +1,4 @@
-image.background{
 
-}
 
 rect.background {
     background: black;
@@ -8,40 +6,22 @@ rect.background {
     line-height: 0;
     opacity: 0.4;
 }
+
 image.background{
     opacity: 0.8;
-}
-
-#main_svg circle.dot {
-	fill-opacity: 0.8;
-	stroke: black;
-}
-
-#main_svg circle.dot:hover {
-	fill-opacity: 1;
-	stroke: maroon;
-	stroke-width: 2px;
-	fill: orange;
-}
-
-#main_svg circle.dot.checkin {
-	fill-opacity: 1;
-	stroke-width: 5px;
-	stroke: rgb(106, 250, 57);
 }
 
 /**
 Filter view
 */
 
-#filter_controls{
+div.dino-control{
     float: left;
     max-width: 350px;
 }
 
 #main_map{
     width: 900px;
-    /*width: 60%;*/
     margin: 10px;
     float: left;
 }
@@ -97,7 +77,6 @@ Filter view
  width:50%;
  height: 200px;
  overflow-y: scroll;
-      background-color: aliceblue;
 }
 
 #subjects_list label{
@@ -117,11 +96,22 @@ Random user view
 
 
 #main_svg circle.dot {
-    fill-opacity: 0.8;
-    stroke: black;
+	fill-opacity: 0.8;
+	stroke: black;
 }
 
+#main_svg circle.dot:hover {
+	fill-opacity: 1;
+	stroke: maroon;
+	stroke-width: 2px;
+	fill: orange;
+}
 
+#main_svg circle.dot.checkin {
+	fill-opacity: 1;
+	stroke-width: 5px;
+	stroke: rgb(106, 250, 57);
+}
 
 /**
 Template changes

@@ -23,7 +23,7 @@ class FilterData(tornado.web.RequestHandler):
         df = self.df
         area = (df["X"]<=x_max) & (df["X"]>=x_min) & (df["Y"]<=y_max) & (df["Y"]>=y_min)
         time = (df["time"] >= t_min) & (df["time"] <= t_max)
-        guests = sorted([int(i) for i in np.unique(df.loc[area&time]["id"])])
+        guests = sorted(df.loc[area & time,"id"].unique().astype(int))
         self.write({"guests" : guests})
 
     def initialize(self, df):
