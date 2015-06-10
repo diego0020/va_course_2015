@@ -1,0 +1,89 @@
+/**
+Filter view
+*/
+
+#filter_controls{
+    float: left;
+    max-width: 350px;
+}
+
+#main_map{
+    width: 900px;
+    margin: 10px;
+    float: left;
+}
+
+#main_svg circle.dot {
+    fill-opacity: 0.8;
+    stroke: black;
+}
+
+#main_svg rect.extent {
+  fill: blueviolet;
+  stroke: black;
+  stroke-width: 5px;
+  fill-opacity: 0.5;
+  stroke-opacity: 1;
+}
+
+.grid-background {
+  fill: #ddd;
+}
+
+.grid line,
+.grid path {
+  fill: none;
+  stroke: #fff;
+  shape-rendering: crispEdges;
+}
+
+.grid .minor.tick line {
+  stroke-opacity: .5;
+}
+
+.axis text {
+  font: 11px sans-serif;
+}
+
+.axis path {
+  display: none;
+}
+
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+#timeline_svg   .brush .extent {
+    stroke: #000;
+    fill-opacity: .125;
+    shape-rendering: crispEdges;
+}
+#subjects_list{
+ width:50%;
+ height: 200px;
+ overflow-y: scroll;
+      background-color: aliceblue;
+}
+
+#subjects_list label{
+ display:block;
+}
+
+#main_svg path {
+  fill: none;
+//  stroke: aliceblue;
+  stroke-width: 3px;
+}
+
+
+/***
+Random user view
+**/
+
+
+#main_svg circle.dot {
+    fill-opacity: 0.8;
+    stroke: black;
+}

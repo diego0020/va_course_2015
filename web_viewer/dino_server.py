@@ -48,10 +48,12 @@ class DataHandler(tornado.web.RequestHandler):
 
 settings = {"template_path" : os.path.dirname(__file__),
             "static_path" : os.path.join(os.path.dirname(__file__),"static"),
+            "debug" : True
             } 
 
 if __name__ == "__main__":
     path = os.path.join(os.path.dirname(__file__), "../../MC1 2015 Data/park-movement-Fri.csv")
+    print('loading...')
     df = pd.read_csv(path)
     df2 = df.copy()
     df2["time"] = pd.to_datetime(df2.Timestamp, format="%Y-%m-%d %H:%M:%S")
