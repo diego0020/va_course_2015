@@ -20,9 +20,11 @@ class FilterData(tornado.web.RequestHandler):
         y_max = float(self.get_argument("y_max"))
         t_min = np.datetime64(int(self.get_argument("t_min")),"ms")
         t_max = np.datetime64(int(self.get_argument("t_max")),"ms")
+
         df = self.df
         area = (df["X"]<=x_max) & (df["X"]>=x_min) & (df["Y"]<=y_max) & (df["Y"]>=y_min)
         time = (df["time"] >= t_min) & (df["time"] <= t_max)
+        # as int
         guests = sorted(df.loc[area & time,"id"].unique().astype(int))
         self.write({"guests" : guests})
 
