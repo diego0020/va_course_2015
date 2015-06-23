@@ -46,7 +46,6 @@ d3.json("miserables2.json", function(error, graphP) {
       .attr("r", 5)
       .style("fill", function(d) { return color(d.group); })
         .on("mouseover",function(d){
-            //TODO Now highligth the piechart
 
             $('#name').html(d.name);
             $('#group').html("<i>Classification 1: </i>"+d.group);
@@ -115,8 +114,4 @@ $('#clust').change(function(e){
     svg.selectAll(".node")
       .data(graph.nodes)
       .style("fill", function(d) { return color(d[typeClustering]); });
-
-    //TODO Update the piechart
-
-
 });
