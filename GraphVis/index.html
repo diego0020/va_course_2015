@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+
+
+<link rel="stylesheet" href="css/styles.css" type="text/css"/>
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/d3.min.js"></script>
+
+    <title>Graph & cluster visualization</title>
+</head>
+<body>
+<h1 style="text-align: center">Graph visualization Demo</h1>
+<h3 style="text-align: center">Les miserables characters</h3>
+<svg id="graph"></svg>
+<div id="panelR" style="text-align: center">
+    <label for="clust">Select clustering:</label>
+    <select id="clust">
+        <option selected value="group">Clustering 1</option>
+        <option value="group2">Clustering 2</option>
+        <option value="group3">Clustering 3</option>
+        <option value="group4">Clustering 4</option>
+    </select>
+
+    <div id="description" style="text-align: center">
+        <p >
+            <b><span id="name"></span></b><br>
+            <span id="group"></span><br>
+            <span id="group2"></span><br>
+            <span id="group3"></span><br>
+            <span id="group4"></span>
+        </p>
+    </div>
+</div>
+
+<script src="js/graphvis.js">
+</script>
+
+
+</body>
+</html>

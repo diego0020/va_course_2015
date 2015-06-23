@@ -1,0 +1,23 @@
+.node {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+.node:hover{
+  stroke: #000;
+  stroke-width: 2.5px;
+
+}
+
+.link {
+  stroke: #999;
+  stroke-opacity: .6;
+}
+
+#panelR{
+  float:left;
+  width: 200px;
+}
+svg{
+  float:left;
+}
